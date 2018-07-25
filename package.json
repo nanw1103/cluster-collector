@@ -14,7 +14,9 @@
     "cluster",
 	"collect",
 	"cluster collector",
-	"gather"
+	"gather",
+	"RPC",
+	"IPC"
   ],
   "dependencies": {
     "cluster-call": "^1.0.2"

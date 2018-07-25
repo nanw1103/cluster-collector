@@ -1,4 +1,3 @@
-const cluster = require('cluster')
 const clusterCollector = require('cluster-collector')
 
 let demo_id = process.env.demo_id

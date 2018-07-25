@@ -1,6 +1,5 @@
 'use strict'
 
-const cluster = require('cluster')
 const clusterCall = require('cluster-call')
 
 const handlerMap = {}
