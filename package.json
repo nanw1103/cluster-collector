@@ -1,10 +1,10 @@
 {
   "name": "cluster-collector",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Collect information from all nodes in a NodeJs cluster",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node demo/demo-master.js"
   },
   "repository": {
     "type": "git",
@@ -12,8 +12,13 @@
   },
   "keywords": [
     "cluster",
-	"collect"
+	"collect",
+	"cluster collector",
+	"gather"
   ],
+  "dependencies": {
+    "cluster-call": "^1.0.2"
+  },
   "author": "nanw1103",
   "license": "MIT"
 }

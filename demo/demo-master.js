@@ -1,28 +1,23 @@
 const cluster = require('cluster')
-const clusterCollector = require('../master')
+const clusterCollector = require('cluster-collector')
 
-cluster.setupMaster({
-	exec: 'demo-child.js'
-})
-
-for (let i = 0; i < 2; i++) {
-	cluster.fork({
-		PORT: i
-	})
-};
+cluster.setupMaster({ exec: __dirname + '/demo-child.js' })
+cluster.fork({ demo_id: 0 })
+cluster.fork({ demo_id: 1 });
 
 (async function() {
 	
-	await new Promise(resolve => setTimeout(resolve, 4000))
+	//delay for demo. You may want to listen to the 'online' event in production case.
+	await new Promise(resolve => setTimeout(resolve, 1000))
 	
 	let options = {
-		//filter: worker => true,	//filter children to collect from
+		//filter: worker => true,	//filter workers to collect from
 		//timeout: 10000,
-		//data: 'your custom obj'
+		data: 'hello'				//a custom object to pass on
 	}
-	let ret = await clusterCollector.collect('stat')
-	console.log('Collected from master', ret)
+	let ret = await clusterCollector.collect('myTopic', options)
+	console.log('Cluster result collected from master', ret)
 	
-})().then().catch(console.error)
+})().catch(e => console.error('error', e))
 
 

@@ -1,25 +1,23 @@
 const cluster = require('cluster')
-const clusterCollector = require('../child')
+const clusterCollector = require('cluster-collector')
 
-let port = process.env.PORT
-console.log(`Worker with port ${port}. isMaster=${cluster.isMaster}`)
+let demo_id = process.env.demo_id
 
-clusterCollector.on('stat', async function(data) {
-	return {
-		port: port,
-		tick: tick
-	}
-})
+//Add a handler which generates data for 'myTopic'.
+//The handler can be either sync or async
+clusterCollector.on('myTopic', async data => data + ' ' + demo_id);
 
-let tick = 0
-setInterval(() => tick++, 100);
-
-(async function() {
+(async function() {	
+	//demo delay
 	await new Promise(resolve => setTimeout(resolve, 2000))
 	
-	let ret = await clusterCollector.collect('stat')
-	console.log('Collected from node', port, ret)
+	let options = {
+		//timeout: 10000,
+		data: 'mortal'		//a custom object to pass on
+	}
 	
-})().then().catch(console.error)
-
-setTimeout(() => process.exit(0), 6000)
+	let ret = await clusterCollector.collect('myTopic', options)
+	console.log('Cluster result collected from a child:', demo_id, ret)
+	
+})().catch(e => console.error('error', e.toString()))
+	.then(() => setTimeout(process.exit, 1000))
