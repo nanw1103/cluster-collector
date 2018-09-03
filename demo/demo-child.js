@@ -4,7 +4,7 @@ let demo_id = process.env.demo_id
 
 //Add a handler which generates data for 'myTopic'.
 //The handler can be either sync or async
-clusterCollector.on('myTopic', async data => data + ' ' + demo_id);
+clusterCollector.on('myTopic', async data => data + ' child ' + demo_id);
 
 (async function() {	
 	//demo delay

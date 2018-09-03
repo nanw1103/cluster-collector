@@ -3,7 +3,10 @@ const clusterCollector = require('cluster-collector')
 
 cluster.setupMaster({ exec: __dirname + '/demo-child.js' })
 cluster.fork({ demo_id: 0 })
-cluster.fork({ demo_id: 1 });
+cluster.fork({ demo_id: 1 })
+
+//OPTIONALLY, you can attach event handler on master node so as to collect from master node as well.
+clusterCollector.on('myTopic', async data => data + ' master');
 
 (async function() {
 	
