@@ -16,6 +16,7 @@ clusterCollector.on('myTopic', async data => data + ' master');
 	let options = {
 		//filter: worker => true,	//filter workers to collect from
 		//timeout: 10000,
+		//excludeMaster: false,		//whether collect from master node or not
 		data: 'hello'				//a custom object to pass on
 	}
 	let ret = await clusterCollector.collect('myTopic', options)

@@ -22,17 +22,20 @@ function collectFromNodes(topic, options) {
 		let t = clusterCall(w)._clusterCollector_collectNode(topic, options.data)
 		if (options.timeout)
 			t.timeout(options.timeout)
-		t.catch(e => {error: e})
+		t = t.catch(e => {error: e})
 		tasks.push(t)
 	}
 	
-	if (clusterCall._clusterCollector_collectNode) {
-		if (typeof options.filter !== 'function' || options.filter(w)) {
-			let t = new Promise(resolve => {
-				let impl = () => resolve(clusterCall._clusterCollector_collectNode(topic, options.data))
-				setImmediate(impl)
-			})
-			tasks.push(t)
+	if (!options.excludeMaster) {
+		if (clusterCall._clusterCollector_collectNode) {
+			if (typeof options.filter !== 'function' || options.filter(w)) {
+				let t = new Promise(resolve => {
+					let impl = () => resolve(clusterCall._clusterCollector_collectNode(topic, options.data))
+					setImmediate(impl)
+				})
+				t = t.catch(e => {error: e})
+				tasks.push(t)
+			}
 		}
 	}
 	

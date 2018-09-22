@@ -12,7 +12,8 @@ clusterCollector.on('myTopic', async data => data + ' child ' + demo_id);
 	
 	let options = {
 		//timeout: 10000,
-		data: 'mortal'		//a custom object to pass on
+		//excludeMaster: false,		//whether collect from master node or not
+		data: 'mortal'				//a custom object to pass on
 	}
 	
 	let ret = await clusterCollector.collect('myTopic', options)
