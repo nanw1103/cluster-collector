@@ -7,7 +7,7 @@ const handlerMap = {}
 clusterCall._clusterCollector_collectNode = function(topic, data) {
 	let h = handlerMap[topic]
 	if (!h)
-		return Promise.reject('Missing handler for collector topic' + topic)
+		return Promise.reject('Missing handler for collector topic ' + topic)
 	return h(data)
 }
 

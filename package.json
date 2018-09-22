@@ -1,6 +1,6 @@
 {
   "name": "cluster-collector",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Collect information from all nodes in a NodeJs cluster",
   "main": "index.js",
   "scripts": {
