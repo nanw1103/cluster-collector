@@ -17,5 +17,6 @@ function collectAllFromMaster(topic, options) {
 
 module.exports = {
 	collect: collectAllFromMaster,
-	on: (topic, handler) => handlerMap[topic] = handler
+	on: (topic, handler) => handlerMap[topic] = handler,
+	isMaster: false
 }

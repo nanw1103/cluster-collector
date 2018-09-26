@@ -44,5 +44,6 @@ function collectFromNodes(topic, options) {
 
 module.exports = {
 	collect: collectFromNodes,
-	on: selfCollector.on
+	on: selfCollector.on,
+	isMaster: true
 }
