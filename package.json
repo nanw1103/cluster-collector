@@ -1,6 +1,6 @@
 {
   "name": "cluster-collector",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Collect information from all nodes in a NodeJs cluster",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
 	"IPC"
   ],
   "dependencies": {
-    "cluster-call": "^1.0.2"
+    "cluster-call": "^1.0.4"
   },
   "author": "nanw1103",
   "license": "MIT"

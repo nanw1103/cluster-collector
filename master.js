@@ -10,35 +10,35 @@ clusterCall._clusterCollector_collectAll = collectFromNodes
 function collectFromNodes(topic, options) {
 	if (!options)
 		options = {}
-	
+
 	let tasks = []
 	for (const i in cluster.workers) {
-		
+
 		let w = cluster.workers[i]
-		
+
 		if (typeof options.filter === 'function' && !options.filter(w))
 			continue
-			
+
 		let t = clusterCall(w)._clusterCollector_collectNode(topic, options.data)
 		if (options.timeout)
 			t.timeout(options.timeout)
-		t = t.catch(e => {error: e})
+		t = t.catch(e => { e })
 		tasks.push(t)
 	}
-	
+
 	if (!options.excludeMaster) {
 		if (clusterCall._clusterCollector_collectNode) {
-			if (typeof options.filter !== 'function' || options.filter(w)) {
+			if (typeof options.filter !== 'function' || options.filter('master')) {
 				let t = new Promise(resolve => {
 					let impl = () => resolve(clusterCall._clusterCollector_collectNode(topic, options.data))
 					setImmediate(impl)
 				})
-				t = t.catch(e => {error: e})
+				t = t.catch(e => { e })
 				tasks.push(t)
 			}
 		}
 	}
-	
+
 	return Promise.all(tasks)
 }
 
